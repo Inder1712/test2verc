@@ -53,13 +53,13 @@ export default function Home() {
             Sold out
           </div>
         </div>
-        <div className="mt-4 text-sm text-gray-600 sm:text-base ">
-          <ol>
+        <div className="mt-4 text-sm text-gray-600 sm:text-base pl-2 ">
+          <ul className="list-disc">
             <li>Pop up when opened</li>
             <li>Can be seen in apple find my</li>
             <li>Working touch controls</li>
             <li>All apple airpods features included</li>
-          </ol>
+          </ul>
         </div>
       </div>
 
