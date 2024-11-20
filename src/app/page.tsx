@@ -1,101 +1,71 @@
-import Image from "next/image";
+"use client";
+import Image from 'next/image';
+import logo from "../../public/vibegear-high-resolution-logo-grayscale-transparent.png"
+import cart from "../../public/cart.svg"
+import admin from "../../public/—Pngtree—admin line icon_5784769.png"
+import airpods from "../../public/AdobeStock_408384620_Preview_Editorial_Use_Only-Photoroom.png"
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const router = useRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Function to handle the click and navigate to another page
+  const handleOrderNowClick = () => {
+    router.push('/order');
+  };
+
+  return (
+    <div className="w-full h-auto">
+      {/* Header Section */}
+      <div className="h-[10%] w-full flex justify-between items-center px-4 sm:px-8 mt-2">
+        <div className="h-auto w-auto">
+          <Image src={logo} alt="Vibegear Logo" className="h-10 sm:h-14 w-auto" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div className="flex items-center space-x-6">
+          <div className="h-6 w-6 sm:h-8 sm:w-8">
+            <Image src={admin} alt="admin" className="h-full w-full" />
+          </div>
+          <div className="h-6 w-6 sm:h-8 sm:w-8">
+            <Image src={cart} alt="cart" className="h-full w-full" />
+          </div>
+        </div>
+      </div>
+
+      {/* Product Image */}
+      <div className="h-auto w-screen flex  items-center">
+        <Image src={airpods} alt="Airpods Pro" className="w-96 h-auto" />
+      </div>
+
+      {/* Product Details */}
+      <div className="w-full p-4 sm:p-6">
+        <div className="font-semibold text-xl sm:text-2xl">Airpods Pro</div>
+        <div className="flex items-center space-x-2 mt-2">
+          <div className="line-through text-gray-600">Rs 1,500</div>
+          <div className="text-xl text-black">Rs 999.00</div>
+          <div className="ml-2 text-sm border-gray-200 text-gray-600 h-6 flex justify-center items-center">
+            Sold out
+          </div>
+        </div>
+        <div className="mt-4 text-sm text-gray-600 sm:text-base ">
+          <p>
+
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro repudiandae hic deserunt harum <br /> 
+          saepe pariatur veritatis perspiciatis,<br />
+           fugiat nostrum nemo quo dolorum quae voluptatum 
+           magni eveniet recusandae similique, temporibus ut unde fugit!
+          </p>
+        </div>
+      </div>
+
+      {/* Order Button */}
+      <div className="h-auto w-full flex p-3 mb-6">
+        <button
+          className="h-12 w-64 sm:w-80 bg-[rgb(133,88,49)] flex justify-center items-center text-lg sm:text-xl text-white rounded-lg"
+          onClick={handleOrderNowClick}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Order Now
+        </button>
+      </div>
     </div>
   );
 }
