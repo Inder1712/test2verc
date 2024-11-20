@@ -3,7 +3,7 @@ import Image from "next/image";
 import logo from "../../public/vibegear-high-resolution-logo-grayscale-transparent.png";
 import cart from "../../public/cart.svg";
 import admin from "../../public/—Pngtree—admin line icon_5784769.png";
-import airpods from "../../public/AdobeStock_408384620_Preview_Editorial_Use_Only-Photoroom.png";
+import airpods from "../../public/pngwing.com (2).png";
 import { useRouter } from "next/navigation";
 import instagram from "../../public/pngwing.com.png";
 import whatsapp from "../../public/pngwing.com (1).png";
@@ -40,7 +40,7 @@ export default function Home() {
 
       {/* Product Image */}
       <div className="h-auto w-screen flex  items-center">
-        <Image src={airpods} alt="Airpods Pro" className="w-96 h-auto" />
+        <Image src={airpods} alt="Airpods Pro" className="w-60 h-auto" />
       </div>
 
       {/* Product Details */}
@@ -54,21 +54,19 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-4 text-sm text-gray-600 sm:text-base ">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro
-            repudiandae hic deserunt harum <br />
-            saepe pariatur veritatis perspiciatis,
-            <br />
-            fugiat nostrum nemo quo dolorum quae voluptatum magni eveniet
-            recusandae similique, temporibus ut unde fugit!
-          </p>
+          <ol>
+            <li>Pop up when opened</li>
+            <li>Can be seen in apple find my</li>
+            <li>Working touch controls</li>
+            <li>All apple airpods features included</li>
+          </ol>
         </div>
       </div>
 
       {/* Order Button */}
       <div className="h-auto w-full flex p-3 mb-6">
         <button
-          className="h-12 w-64 sm:w-80 bg-[rgb(133,88,49)] flex justify-center items-center text-lg sm:text-xl text-white rounded-lg"
+          className="h-12 w-64 sm:w-80 bg-[rgb(133,88,49)]  hover:bg-[rgb(107,70,37)] flex justify-center items-center text-lg sm:text-xl text-white rounded-lg"
           onClick={handleOrderNowClick}
         >
           Order Now
@@ -81,13 +79,13 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <div>
               <h3 className="text-lg font-semibold">Contact Us</h3>
-              <p className="text-sm mt-2">Email: support@vibegear.com</p>
-              <p className="text-sm">Phone: +1 234 567 890</p>
+              <p className="text-sm mt-2">Email: vibegear3@gmail.com</p>
+              <p className="text-sm">Phone: +91 8894432213</p>
             </div>
 
             <div>
               <h3 className="text-lg font-semibold">Address</h3>
-              <p className="text-sm mt-2">Vibegear, 1234 Market St, Cityville, Country</p>
+              <p className="text-sm mt-2">Vibegear, India</p>
             </div>
 
             <div>
@@ -97,7 +95,7 @@ export default function Home() {
                   <Image src={instagram} alt="Instagram" width={24} height={24} />
                 </a>
                 <a href="https://wa.me/918894432213" target="_blank" rel="noopener noreferrer">
-                  <Image src={whatsapp} alt="Whatsaap" width={24} height={24} />
+                  <Image src={whatsapp} alt="Whatsaap" width={22} height={22} />
                 </a>
               </div>
             </div>
@@ -105,7 +103,7 @@ export default function Home() {
 
           {/* Footer Bottom */}
           <div className="mt-6 text-center text-sm text-gray-400">
-            <p>© 2024 Vibegear. All rights reserved.</p>
+            <p>2024 Vibegear</p>
           </div>
         </div>
       </footer>

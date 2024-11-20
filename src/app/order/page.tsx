@@ -157,7 +157,7 @@ export default function Order() {
 
         {/* Submit Button */}
         <button
-          className="w-64 h-12 py-3 bg-[rgb(133,88,49)] text-white text-lg font-semibold rounded-lg hover:bg-blue-700 focus:outline-none"
+          className="w-64 h-12 py-3 bg-[rgb(133,88,49)] text-white text-lg font-semibold rounded-lg hover:bg-[rgb(107,70,37)] focus:outline-none"
           onClick={() => alert("Order Submitted!")}
         >
           Submit Order
@@ -187,7 +187,7 @@ export default function Order() {
                   <Image src={instagram} alt="Instagram" width={24} height={24} />
                 </a>
                 <a href="https://wa.me/918894432213" target="_blank" rel="noopener noreferrer">
-                  <Image src={whatsapp} alt="Whatsaap" width={24} height={24} />
+                  <Image src={whatsapp} alt="Whatsaap" width={22} height={22} />
                 </a>
               </div>
             </div>
