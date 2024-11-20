@@ -1,10 +1,11 @@
-// pages/order.tsx
 "use client";
 import { useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/vibegear-high-resolution-logo-grayscale-transparent.png";
 import cart from "../../../public/cart.svg";
 import admin from "../../../public/—Pngtree—admin line icon_5784769.png";
+import instagram from "../../../public/pngwing.com.png";
+import whatsapp from "../../../public/pngwing.com (1).png";
 
 export default function Order() {
   // State to manage form data
@@ -34,7 +35,7 @@ export default function Order() {
   };
 
   return (
-    <div className="h-full flex flex-col justify-center items-start  bg-gray-50">
+    <div className="h-full flex flex-col justify-between items-start bg-gray-50">
       {/* Header/Navbar */}
       <div className="h-[10%] w-full flex justify-between items-center px-4 sm:px-8 mt-2">
         <div className="h-auto w-auto">
@@ -51,12 +52,9 @@ export default function Order() {
       </div>
 
       {/* Order Form */}
-      <div className="w-full max-w-3xl  rounded-lg  p-6">
-      
-
+      <div className="w-full max-w-3xl rounded-lg p-6">
         {/* Customer Information */}
         <section className="mb-8">
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-600">Full Name</label>
@@ -150,7 +148,6 @@ export default function Order() {
               <span className="text-gray-700">Shipping Fee</span>
               <span className="text-gray-700">0Rs.</span>
             </div>
-            
             <div className="flex justify-between font-semibold text-lg mb-4">
               <span>Total</span>
               <span>999Rs.</span>
@@ -166,6 +163,42 @@ export default function Order() {
           Submit Order
         </button>
       </div>
+
+      {/* Footer Section */}
+      <footer className="bg-gray-800 text-white py-6 mt-6 w-full">
+        <div className="max-w-screen-lg mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold">Contact Us</h3>
+              <p className="text-sm mt-2">Email: vibegear3@gmail.com</p>
+              <p className="text-sm">Phone: +91 8894432213</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold">Address</h3>
+              <p className="text-sm mt-2">Vibegear, India</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold">Follow Us</h3>
+              <div className="flex space-x-4 mt-2">
+                
+                <a href="https://www.instagram.com/vibegear__/profilecard/?igsh=cTRuOGJ4dXlnc3lt" target="_blank" rel="noopener noreferrer">
+                  <Image src={instagram} alt="Instagram" width={24} height={24} />
+                </a>
+                <a href="https://wa.me/918894432213" target="_blank" rel="noopener noreferrer">
+                  <Image src={whatsapp} alt="Whatsaap" width={24} height={24} />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Bottom */}
+          <div className="mt-6 text-center text-sm text-gray-400">
+            <p> 2024 Vibegear</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
