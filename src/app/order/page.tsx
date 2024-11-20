@@ -34,7 +34,7 @@ export default function Order() {
   };
 
   return (
-    <div className="h-full flex flex-col justify-center items-start p-6 bg-gray-50">
+    <div className="h-full flex flex-col justify-center items-start  bg-gray-50">
       {/* Header/Navbar */}
       <div className="h-[10%] w-full flex justify-between items-center px-4 sm:px-8 mt-2">
         <div className="h-auto w-auto">
