@@ -76,8 +76,13 @@ export default function Order() {
       } else {
         setError("Failed to submit order. Please try again."); // Set error message
       }
-    } catch (error) {
-      setError("An error occurred while submitting the order."); // Handle any unexpected error
+    } catch (err: unknown) {
+      // TypeScript now knows `err` is of type `unknown`, so we cast it to `Error` to access `message`
+      if (err instanceof Error) {
+        setError(`An error occurred while submitting the order: ${err.message}`); // Handle any unexpected error
+      } else {
+        setError("An unknown error occurred while submitting the order.");
+      }
     } finally {
       setLoading(false); // Set loading to false after the request is completed
     }
