@@ -49,7 +49,7 @@ export default function Home() {
         <div className="flex items-center space-x-2 mt-2">
           <div className="line-through text-gray-600">Rs 1,500</div>
           <div className="text-xl text-black">Rs 999.00</div>
-          <div className="ml-2 text-sm border-gray-200 text-gray-600 h-6 flex justify-center items-center">
+          <div className="ml-2 text-sm border-gray-200 text-gray-600 h-6 flex justify-center items-center hidden">
             Sold out
           </div>
         </div>
