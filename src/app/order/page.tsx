@@ -26,12 +26,42 @@ export default function Order() {
     billingZip: "",
   });
 
+  const [loading, setLoading] = useState(false); // State to track loading status
+  const [error, setError] = useState(""); // State to track error message
+  const [success, setSuccess] = useState(""); // State to track success message
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? null : value,
     }));
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true); // Set loading state when the form is being submitted
+    setError(""); // Reset any previous errors
+    setSuccess(""); // Reset success state
+
+    try {
+      const response = await fetch("http://localhost:5000/submit-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSuccess("Order submitted successfully!"); // Set success message
+      } else {
+        setError("Failed to submit order. Please try again."); // Set error message
+      }
+    } catch {
+      setError("An error occurred while submitting the order."); // Handle any unexpected error
+    } finally {
+      setLoading(false); // Set loading to false after the request is completed
+    }
   };
 
   return (
@@ -158,10 +188,15 @@ export default function Order() {
         {/* Submit Button */}
         <button
           className="w-64 h-12 py-3 bg-[rgb(133,88,49)] text-white text-lg font-semibold rounded-lg hover:bg-[rgb(107,70,37)] focus:outline-none"
-          onClick={() => alert("Order Submitted!")}
+          onClick={handleSubmit} // Trigger POST request on submit
+          disabled={loading} // Disable button while loading
         >
-          Submit Order
+          {loading ? "Submitting..." : "Submit Order"} {/* Show loading state */}
         </button>
+
+        {/* Error or Success Message */}
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {success && <p className="text-green-500 mt-4">{success}</p>}
       </div>
 
       {/* Footer Section */}
@@ -182,7 +217,6 @@ export default function Order() {
             <div>
               <h3 className="text-lg font-semibold">Follow Us</h3>
               <div className="flex space-x-4 mt-2">
-                
                 <a href="https://www.instagram.com/vibegear__/profilecard/?igsh=cTRuOGJ4dXlnc3lt" target="_blank" rel="noopener noreferrer">
                   <Image src={instagram} alt="Instagram" width={24} height={24} />
                 </a>
@@ -195,7 +229,7 @@ export default function Order() {
 
           {/* Footer Bottom */}
           <div className="mt-6 text-center text-sm text-gray-400">
-            <p> 2024 Vibegear</p>
+            <p>2024 Vibegear</p>
           </div>
         </div>
       </footer>
