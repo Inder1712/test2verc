@@ -6,6 +6,7 @@ import cart from "../../../public/cart.svg";
 import admin from "../../../public/—Pngtree—admin line icon_5784769.png";
 import instagram from "../../../public/pngwing.com.png";
 import whatsapp from "../../../public/pngwing.com (1).png";
+import emailjs from 'emailjs-com';
 
 export default function Order() {
   // State to manage form data
@@ -43,21 +44,39 @@ export default function Order() {
     setError(""); // Reset any previous errors
     setSuccess(""); // Reset success state
 
-    try {
-      const response = await fetch("http://localhost:5000/submit-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    // Prepare the email data (can modify this as per your EmailJS template)
+    const emailParams = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      zip: formData.zip,
+      quantity1: formData.quantity1,
+      quantity2: formData.quantity2,
+      billingAddressSame: formData.billingAddressSame,
+      billingAddress: formData.billingAddress,
+      billingCity: formData.billingCity,
+      billingState: formData.billingState,
+      billingZip: formData.billingZip,
+    };
 
-      if (response.ok) {
+    try {
+      // Replace these with your actual service ID, template ID, and user ID from EmailJS
+      const serviceID = "service_5jgnbey";
+      const templateID = "template_yaq4ubc";
+      const userID = "1yEKpoHwKrYMCvP33";
+
+      // Send email using EmailJS
+      const response = await emailjs.send(serviceID, templateID, emailParams, userID);
+
+      if (response.status === 200) {
         setSuccess("Order submitted successfully!"); // Set success message
       } else {
         setError("Failed to submit order. Please try again."); // Set error message
       }
-    } catch {
+    } catch (error) {
       setError("An error occurred while submitting the order."); // Handle any unexpected error
     } finally {
       setLoading(false); // Set loading to false after the request is completed
@@ -188,7 +207,7 @@ export default function Order() {
         {/* Submit Button */}
         <button
           className="w-64 h-12 py-3 bg-[rgb(133,88,49)] text-white text-lg font-semibold rounded-lg hover:bg-[rgb(107,70,37)] focus:outline-none"
-          onClick={handleSubmit} // Trigger POST request on submit
+          onClick={handleSubmit} // Trigger EmailJS request on submit
           disabled={loading} // Disable button while loading
         >
           {loading ? "Submitting..." : "Submit Order"} {/* Show loading state */}
@@ -221,7 +240,7 @@ export default function Order() {
                   <Image src={instagram} alt="Instagram" width={24} height={24} />
                 </a>
                 <a href="https://wa.me/918894432213" target="_blank" rel="noopener noreferrer">
-                  <Image src={whatsapp} alt="Whatsaap" width={22} height={22} />
+                  <Image src={whatsapp} alt="WhatsApp" width={22} height={22} />
                 </a>
               </div>
             </div>
