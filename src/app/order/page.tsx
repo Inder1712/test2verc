@@ -25,11 +25,13 @@ export default function Order() {
     billingCity: "",
     billingState: "",
     billingZip: "",
+    referralCode: "", // Added referral code state
   });
 
   const [loading, setLoading] = useState(false); // State to track loading status
   const [error, setError] = useState(""); // State to track error message
   const [success, setSuccess] = useState(""); // State to track success message
+  const [discount, setDiscount] = useState(0); // State to track discount
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -37,6 +39,21 @@ export default function Order() {
       ...prevData,
       [name]: type === "checkbox" ? null : value,
     }));
+  };
+
+  const handleReferralCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      referralCode: value,
+    }));
+
+    // Check if referral code is valid
+    if (value.length == 5) { // Assuming "VIBE100" is a valid referral code
+      setDiscount(100); // Apply 100 Rs. discount
+    } else {
+      setDiscount(0); // No discount if the code is invalid
+    }
   };
 
   const handleSubmit = async () => {
@@ -60,6 +77,8 @@ export default function Order() {
       billingCity: formData.billingCity,
       billingState: formData.billingState,
       billingZip: formData.billingZip,
+      referralCode: formData.referralCode,
+      discount: discount, // Include the discount in the email data
     };
 
     try {
@@ -88,6 +107,14 @@ export default function Order() {
     }
   };
 
+  // Calculate the total price considering the discount
+  const calculateTotal = () => {
+    const subtotal = 999; // Your subtotal value
+    const shippingFee = 0; // Your shipping fee
+    const total = subtotal + shippingFee - discount; // Subtract the discount from the total
+    return total;
+  };
+
   return (
     <div className="h-full flex flex-col justify-between items-start bg-gray-50">
       {/* Header/Navbar */}
@@ -114,6 +141,7 @@ export default function Order() {
               <label htmlFor="name" className="block text-sm font-medium text-gray-600">Full Name</label>
               <input
                 type="text"
+                placeholder="Name"
                 id="name"
                 name="name"
                 value={formData.name}
@@ -125,6 +153,7 @@ export default function Order() {
               <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email Address</label>
               <input
                 type="email"
+                placeholder="abc@gmail.com"
                 id="email"
                 name="email"
                 value={formData.email}
@@ -136,6 +165,7 @@ export default function Order() {
               <label htmlFor="phone" className="block text-sm font-medium text-gray-600">Phone Number</label>
               <input
                 type="tel"
+                placeholder="Phone Number"
                 id="phone"
                 name="phone"
                 value={formData.phone}
@@ -146,6 +176,7 @@ export default function Order() {
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-gray-600">Street Address</label>
               <input
+                placeholder="Street"
                 type="text"
                 id="address"
                 name="address"
@@ -155,8 +186,9 @@ export default function Order() {
               />
             </div>
             <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-600">City</label>
+              <label htmlFor="city" className="block text-sm font-medium text-gray-600">Delivery Address</label>
               <input
+                placeholder="Add some delivery mark"
                 type="text"
                 id="city"
                 name="city"
@@ -168,9 +200,10 @@ export default function Order() {
             <div>
               <label htmlFor="state" className="block text-sm font-medium text-gray-600">State/Province</label>
               <input
+                placeholder="state"
                 type="text"
-                id="state"
-                name="state"
+                id="State"
+                name="State"
                 value={formData.state}
                 onChange={handleInputChange}
                 className="w-full p-2 border border-gray-300 rounded-lg mt-1"
@@ -179,6 +212,7 @@ export default function Order() {
             <div>
               <label htmlFor="zip" className="block text-sm font-medium text-gray-600">Postal Code</label>
               <input
+                placeholder="Pin Code"
                 type="text"
                 id="zip"
                 name="zip"
@@ -188,6 +222,20 @@ export default function Order() {
               />
             </div>
           </div>
+        </section>
+
+        {/* Referral Code */}
+        <section className="mb-8">
+          <label htmlFor="referralCode" className="block text-sm font-medium text-gray-600">Referral Code (Optional)</label>
+          <input
+            type="text"
+            id="referralCode"
+            name="referralCode"
+            value={formData.referralCode}
+            onChange={handleReferralCodeChange}
+            placeholder="Enter referral code"
+            className="w-full p-2 border border-gray-300 rounded-lg mt-1"
+          />
         </section>
 
         {/* Order Summary */}
@@ -202,9 +250,17 @@ export default function Order() {
               <span className="text-gray-700">Shipping Fee</span>
               <span className="text-gray-700">0Rs.</span>
             </div>
+            {/* Show Referral Code Discount */}
+            {discount > 0 && (
+              <div className="flex justify-between mb-2 text-green-600 font-semibold">
+                <span>Referral Code Discount</span>
+                <span>-{discount}Rs.</span>
+              </div>
+            )}
+            {/* Total after discount */}
             <div className="flex justify-between font-semibold text-lg mb-4">
               <span>Total</span>
-              <span>999Rs.</span>
+              <span>{calculateTotal()}Rs.</span> {/* Show the total with discount */}
             </div>
           </div>
         </section>
