@@ -174,7 +174,7 @@ export default function Order() {
               />
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-600">Street Address</label>
+              <label htmlFor="address" className="block text-sm font-medium text-gray-600">State</label>
               <input
                 placeholder="Street"
                 type="text"
@@ -197,18 +197,7 @@ export default function Order() {
                 className="w-full p-2 border border-gray-300 rounded-lg mt-1"
               />
             </div>
-            <div>
-              <label htmlFor="state" className="block text-sm font-medium text-gray-600">State/Province</label>
-              <input
-                placeholder="state"
-                type="text"
-                id="State"
-                name="State"
-                value={formData.state}
-                onChange={handleInputChange}
-                className="w-full p-2 border border-gray-300 rounded-lg mt-1"
-              />
-            </div>
+            
             <div>
               <label htmlFor="zip" className="block text-sm font-medium text-gray-600">Postal Code</label>
               <input
@@ -231,6 +220,7 @@ export default function Order() {
             type="text"
             id="referralCode"
             name="referralCode"
+            
             value={formData.referralCode}
             onChange={handleReferralCodeChange}
             placeholder="Enter referral code"
