@@ -6,6 +6,7 @@ import cart from "../../../public/cart.svg";
 import admin from "../../../public/—Pngtree—admin line icon_5784769.png";
 import instagram from "../../../public/pngwing.com.png";
 import whatsapp from "../../../public/pngwing.com (1).png";
+import QR from "../../../public/WhatsApp Image 2024-11-26 at 2.56.18 PM.jpeg";
 import emailjs from 'emailjs-com';
 
 export default function Order() {
@@ -26,6 +27,11 @@ export default function Order() {
     billingState: "",
     billingZip: "",
     referralCode: "", // Added referral code state
+    paymentMethod: "COD", // Default payment method is COD
+    qrCode: "", // QR code for online payment
+    upiId: "", // UPI ID for online payment
+    paymentProof: "", // Payment proof file
+    referenceId: "", // Reference ID for online payment
   });
 
   const [loading, setLoading] = useState(false); // State to track loading status
@@ -56,12 +62,23 @@ export default function Order() {
     }
   };
 
+  const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      paymentMethod: value,
+    }));
+  };
+
+  
+  
+
   const handleSubmit = async () => {
     setLoading(true); // Set loading state when the form is being submitted
     setError(""); // Reset any previous errors
     setSuccess(""); // Reset success state
 
-    // Prepare the email data (can modify this as per your EmailJS template)
+    // Prepare the email data
     const emailParams = {
       name: formData.name,
       email: formData.email,
@@ -79,10 +96,14 @@ export default function Order() {
       billingZip: formData.billingZip,
       referralCode: formData.referralCode,
       discount: discount, // Include the discount in the email data
+      paymentMethod: formData.paymentMethod, // Include selected payment method
+      qrCode: formData.qrCode, // Include QR code (if online payment)
+      upiId: formData.upiId, // Include UPI ID (if online payment)
+      referenceId: formData.referenceId, // Include reference ID
+      paymentProof: formData.paymentProof , // Include payment proof file name
     };
 
     try {
-      // Replace these with your actual service ID, template ID, and user ID from EmailJS
       const serviceID = "service_5jgnbey";
       const templateID = "template_yaq4ubc";
       const userID = "1yEKpoHwKrYMCvP33";
@@ -91,33 +112,31 @@ export default function Order() {
       const response = await emailjs.send(serviceID, templateID, emailParams, userID);
 
       if (response.status === 200) {
-        setSuccess("Order submitted successfully!"); // Set success message
+        setSuccess("Order submitted successfully!");
       } else {
-        setError("Failed to submit order. Please try again."); // Set error message
+        setError("Failed to submit order. Please try again.");
       }
     } catch (err: unknown) {
-      // TypeScript now knows `err` is of type `unknown`, so we cast it to `Error` to access `message`
       if (err instanceof Error) {
-        setError(`An error occurred while submitting the order: ${err.message}`); // Handle any unexpected error
+        setError(`An error occurred while submitting the order: ${err.message}`);
       } else {
         setError("An unknown error occurred while submitting the order.");
       }
     } finally {
-      setLoading(false); // Set loading to false after the request is completed
+      setLoading(false);
     }
   };
 
   // Calculate the total price considering the discount
   const calculateTotal = () => {
-    const subtotal = 999; // Your subtotal value
-    const shippingFee = 0; // Your shipping fee
-    const total = subtotal + shippingFee - discount; // Subtract the discount from the total
+    const subtotal = 999;
+    const shippingFee = 0;
+    const total = subtotal + shippingFee - discount;
     return total;
   };
 
   return (
     <div className="h-full flex flex-col justify-between items-start bg-gray-50">
-      {/* Header/Navbar */}
       <div className="h-[10%] w-full flex justify-between items-center px-4 sm:px-8 mt-2">
         <div className="h-auto w-auto">
           <Image src={logo} alt="Vibegear Logo" className="h-10 sm:h-14 w-auto" />
@@ -132,7 +151,6 @@ export default function Order() {
         </div>
       </div>
 
-      {/* Order Form */}
       <div className="w-full max-w-3xl rounded-lg p-6">
         {/* Customer Information */}
         <section className="mb-8">
@@ -174,7 +192,7 @@ export default function Order() {
               />
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-600">State</label>
+              <label htmlFor="address" className="block text-sm font-medium text-gray-600">Address</label>
               <input
                 placeholder="Street"
                 type="text"
@@ -186,9 +204,8 @@ export default function Order() {
               />
             </div>
             <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-600">Delivery Address</label>
+              <label htmlFor="city" className="block text-sm font-medium text-gray-600">City</label>
               <input
-                placeholder="Add some delivery mark"
                 type="text"
                 id="city"
                 name="city"
@@ -197,7 +214,6 @@ export default function Order() {
                 className="w-full p-2 border border-gray-300 rounded-lg mt-1"
               />
             </div>
-            
             <div>
               <label htmlFor="zip" className="block text-sm font-medium text-gray-600">Postal Code</label>
               <input
@@ -220,12 +236,51 @@ export default function Order() {
             type="text"
             id="referralCode"
             name="referralCode"
-            
             value={formData.referralCode}
             onChange={handleReferralCodeChange}
             placeholder="Enter referral code"
             className="w-full p-2 border border-gray-300 rounded-lg mt-1"
           />
+        </section>
+
+        {/* Payment Method */}
+        <section className="mb-8">
+          <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-600">Payment Method</label>
+          <select
+            id="paymentMethod"
+            name="paymentMethod"
+            value={formData.paymentMethod}
+            onChange={handlePaymentMethodChange}
+            className="w-full p-2 border border-gray-300 rounded-lg mt-1"
+          >
+            <option value="COD">Cash on Delivery</option>
+            <option value="Online Payment">Online Payment</option>
+          </select>
+
+          {formData.paymentMethod === "Online Payment" && (
+            <div className="mt-4">
+              <div>
+              </div>
+
+              <div className="mt-4">
+                <label htmlFor="paymentProof" className="block font-medium text-gray-600">Scan this QR</label>
+                <Image src={QR} alt="a" height={150}>
+
+                </Image>
+                
+              </div>
+                <label htmlFor="upiId" className="block text-sm font-medium text-gray-600">Reference Number</label>
+                <input
+                  type="text"
+                  id="upiId"
+                  name="upiId"
+                  value={formData.upiId}
+                  onChange={handleInputChange}
+                  placeholder="Enter Reference Number after payment"
+                  className="w-full p-2 border border-gray-300 rounded-lg mt-1"
+                />
+            </div>
+          )}
         </section>
 
         {/* Order Summary */}
@@ -250,7 +305,7 @@ export default function Order() {
             {/* Total after discount */}
             <div className="flex justify-between font-semibold text-lg mb-4">
               <span>Total</span>
-              <span>{calculateTotal()}Rs.</span> {/* Show the total with discount */}
+              <span>{calculateTotal()}Rs.</span>
             </div>
           </div>
         </section>
@@ -261,7 +316,7 @@ export default function Order() {
           onClick={handleSubmit} // Trigger EmailJS request on submit
           disabled={loading} // Disable button while loading
         >
-          {loading ? "Submitting..." : "Submit Order"} {/* Show loading state */}
+          {loading ? "Submitting..." : "Submit Order"}
         </button>
 
         {/* Error or Success Message */}
@@ -269,7 +324,6 @@ export default function Order() {
         {success && <p className="text-green-500 mt-4">{success}</p>}
       </div>
 
-      {/* Footer Section */}
       <footer className="bg-gray-800 text-white py-6 mt-6 w-full">
         <div className="max-w-screen-lg mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -278,12 +332,10 @@ export default function Order() {
               <p className="text-sm mt-2">Email: vibegear3@gmail.com</p>
               <p className="text-sm">Phone: +91 8894432213</p>
             </div>
-
             <div>
               <h3 className="text-lg font-semibold">Address</h3>
               <p className="text-sm mt-2">Vibegear, India</p>
             </div>
-
             <div>
               <h3 className="text-lg font-semibold">Follow Us</h3>
               <div className="flex space-x-4 mt-2">
@@ -296,8 +348,6 @@ export default function Order() {
               </div>
             </div>
           </div>
-
-          {/* Footer Bottom */}
           <div className="mt-6 text-center text-sm text-gray-400">
             <p>2024 Vibegear</p>
           </div>
