@@ -276,7 +276,7 @@ export default function Order() {
                   name="upiId"
                   value={formData.upiId}
                   onChange={handleInputChange}
-                  placeholder="Enter Reference Number after payment"
+                  placeholder="Enter Reference Number of payment done"
                   className="w-full p-2 border border-gray-300 rounded-lg mt-1"
                 />
             </div>
