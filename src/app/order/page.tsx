@@ -129,7 +129,7 @@ export default function Order() {
   };
 
   const calculateTotal = () => {
-    const subtotal = 999;
+    const subtotal = 499;
     const shippingFee = 0;
     const total = subtotal + shippingFee - discount;
     return total;
@@ -322,7 +322,7 @@ export default function Order() {
             <div className="border-t border-gray-300 pt-4">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-700">Subtotal</span>
-                <span className="text-gray-700">999Rs.</span>
+                <span className="text-gray-700">499Rs. </span>
               </div>
               <div className="flex justify-between mb-2">
                 <span className="text-gray-700">Shipping Fee</span>
