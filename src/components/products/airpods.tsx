@@ -17,8 +17,8 @@ export default function Airpods() {
       <div className="w-full p-4 sm:p-6">
         <div className="font-semibold text-xl sm:text-2xl">Airpods Pro</div>
         <div className="flex items-center space-x-2 mt-2">
-          <div className="line-through text-gray-600">Rs 1,500</div>
-          <div className="text-xl text-black">Rs 999.00</div>
+          <div className="line-through text-gray-600">Rs 22,000</div>
+          <div className="text-xl text-black">Rs 499.00</div>
           <div className="ml-2 text-sm border-gray-200 text-gray-600 h-6 justify-center items-center hidden">
             Sold out
           </div>
