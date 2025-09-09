@@ -16,6 +16,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "VibeGear",
   description: "Gear Up Your Gadgets",
+    icons: {
+    icon: "/favicon.png", // or "/favicon.png"
+  },
 };
 
 export default function RootLayout({
