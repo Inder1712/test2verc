@@ -11,7 +11,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold">Contact Us</h3>
             <p className="text-sm mt-2">Email: vibegear3@gmail.com</p>
-            <p className="text-sm">Phone: +91 8894432213</p>
+            <p className="text-sm">Phone: +91 8219109010</p>
           </div>
 
           <div>
@@ -30,7 +30,7 @@ export default function Footer() {
                 <Image src={instagram} alt="Instagram" width={24} height={24} />
               </a>
               <a
-                href="https://wa.me/918894432213"
+                href="https://wa.me/918219109010"
                 target="_blank"
                 rel="noopener noreferrer"
               >
